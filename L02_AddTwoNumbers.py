@@ -25,7 +25,9 @@ class Solution(object):
             else:
                 value, add = self._addTwoNumbers(0, 0, add)
             l3.append(value)
-        print(l3)
+        if l1 is None and l2 is None and add == 1:
+            l3.append(add)
+        return l3
 
     def _addTwoNumbers(self, node1, node2, add=0):
 
@@ -39,13 +41,13 @@ class Solution(object):
 
 
 if __name__ == '__main__':
-    l1 = ListNode(9)
-    # l1.next = ListNode(4)
-    # l1.next.next = ListNode(3)
+    l1 = ListNode(2)
+    l1.next = ListNode(4)
+    l1.next.next = ListNode(3)
 
-    l2 = ListNode(9)
-    # l2.next = ListNode(6)
-    # l2.next.next = ListNode(4)
+    l2 = ListNode(5)
+    l2.next = ListNode(6)
+    l2.next.next = ListNode(4)
 
     m = Solution()
     l3 = m.addTwoNumbers(l1, l2)
