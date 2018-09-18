@@ -18,12 +18,12 @@ class Solution:
                         print(s1)
                         palindrome_container.append(s[idx:idx_reverse + 1])
 
-                    # while s[idx01] == s[idx_reverse01]:
-                    #     if idx_reverse01 - idx01 == 1 or idx_reverse01 - idx01 == 2:
-                    #         palindrome_container.append(s[idx:idx_reverse + 1])
-                    #         break
-                    #     idx01 += 1
-                    #     idx_reverse01 -= 1
+                    while s[idx01] == s[idx_reverse01]:
+                        if idx_reverse01 - idx01 == 1 or idx_reverse01 - idx01 == 2:
+                            palindrome_container.append(s[idx:idx_reverse + 1])
+                            break
+                        idx01 += 1
+                        idx_reverse01 -= 1
                 elif idx == idx_reverse:
                     break
         if s == "":
@@ -41,6 +41,6 @@ class Solution:
 
 
 if __name__ == '__main__':
-    m = "aaabaaaa"
+    m = "bcabacd"
     m1 = Solution().longestPalindrome(m)
     print(m1)

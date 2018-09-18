@@ -1,4 +1,5 @@
 class Solution:
+    # 暴力法
     def findMedianSortedArrays(self, A, B):
         m = len(A)
         n = len(B)
