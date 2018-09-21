@@ -52,9 +52,9 @@ class Solution:
 
 
 class Solution:
-    max = -float("inf")
 
     def maxPathSum(self, root):
+        max = -float("inf")
         self.maxsum(root)
         return self.max
 
@@ -74,7 +74,6 @@ class Solution:
         if sum > self.max:
             self.max = sum
         return max(root.val, max(root.val + lmax, root.val + rmax))
-
 
 
     # 方法不优，不知道为什么过不了leetcode，自测OK
