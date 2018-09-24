@@ -56,7 +56,7 @@ class Solution:
 
     def maxPathSum(self, root):
         self.maxsum(root)
-        return self.max
+        return self.max,
 
     def maxsum(self, root):
         if root is None:
@@ -73,9 +73,7 @@ class Solution:
                 sum += rmax
         if sum > self.max:
             self.max = sum
-        return max(root.val, max(root.val + lmax, root.val + rmax))
-
-
+        return max(root.val, max(root.val + lmax, root.val + rmax ))
 
     # 方法不优，不知道为什么过不了leetcode，自测OK
     # def maxPathSum(self, root):
@@ -116,17 +114,19 @@ class Solution:
 
 
 if __name__ == '__main__':
-    root = TreeNode(-3)
-    root.left = TreeNode(-2)
-    root.left.left = TreeNode(-5)
-    root.left.right = TreeNode(-4)
-    root.right = TreeNode(-1)
-    root.right.left = TreeNode(-6)
-    root.right.right = TreeNode(-2)
+    # root = TreeNode(3)
+    # root.left = TreeNode(-2)
+    # root.left.left = TreeNode(5)
+    # root.left.right = TreeNode(-4)
+    # root.right = TreeNode(1)
+    # root.right.left = TreeNode(-6)
+    # root.right.right = TreeNode(-2)
 
-    # root = TreeNode(1)
-    # root.left = TreeNode(2)
-    # root.right = TreeNode(3)
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.left.left = TreeNode(4)
+    root.left.right = TreeNode(5)
     s = Solution()
     s1 = s.maxPathSum(root)
     print(s1)
