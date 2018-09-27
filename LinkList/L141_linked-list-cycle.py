@@ -4,22 +4,43 @@ class ListNode(object):
         self.next = None
 
 
+# class Solution(object):
+#     def hasCycle(self, head):
+#         """
+#         :type head: ListNode
+#         :rtype: bool
+#         """
+#         boolval = False
+#         node = head
+#         while node is not None :
+#             node = node.next
+#             if node == head:
+#                 boolval = True
+#                 break
+#             elif node is None:
+#                 break
+#         return boolval
+
+
 class Solution(object):
     def hasCycle(self, head):
         """
         :type head: ListNode
         :rtype: bool
         """
-        boolval = False
-        node = head
-        while node is not None :
-            node = node.next
-            if node == head:
-                boolval = True
-                break
-            elif node is None:
-                break
-        return boolval
+        if head is None or head.next is None:
+            return False
+        slow = head
+        fast = head.next
+        while slow != fast:
+            if slow is None or fast.next is None:
+                return False
+            slow = slow.next
+            fast = fast.next
+            if fast.next is None:
+                return False
+            fast = fast.next
+        return True
 
 
 if __name__ == '__main__':
