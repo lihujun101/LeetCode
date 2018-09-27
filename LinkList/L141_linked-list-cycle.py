@@ -22,6 +22,24 @@ class ListNode(object):
 #         return boolval
 
 
+# class Solution(object):
+#     def hasCycle(self, head):
+#         """
+#         :type head: ListNode
+#         :rtype: bool
+#         """
+#         boolval = False
+#         node = head
+#         while node is not None :
+#             node = node.next
+#             if node == head:
+#                 boolval = True
+#                 break
+#             elif node is None:
+#                 break
+#         return boolval
+
+
 class Solution(object):
     def hasCycle(self, head):
         """
@@ -37,7 +55,7 @@ class Solution(object):
                 return False
             slow = slow.next
             fast = fast.next
-            # 这一步是为了fast.next.next是有效的
+
             if fast.next is None:
                 return False
             fast = fast.next
