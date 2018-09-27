@@ -15,7 +15,7 @@ class Solution(object):
         index_max_A,index_max_B = 0,0
         headA0,headB0 = headA,headB
         while headA0 is not None:
-            headA0 = headA.next
+            headA0 = headA0.next
             index_max_A += 1
         while headB0 is not None:
             headB0 = headB0.next
