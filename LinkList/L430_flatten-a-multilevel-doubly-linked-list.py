@@ -1,3 +1,6 @@
+from copy import deepcopy
+
+
 class Node(object):
     def __init__(self, val, prev=None, next=None, child=None):
         self.val = val
@@ -7,6 +10,8 @@ class Node(object):
 
 
 class Solution(object):
+
+    # 自己写的递归方法会失败,想不明白
     def flatten(self, head):
         """
         :type head: Node
@@ -26,8 +31,12 @@ class Solution(object):
                 # 更换之前需要记录cur_next的位置
                 cur_next = cur.next
                 head_child = cur.child
+                # 结点的child置为None
+                cur.child = None
+
                 cur.next = head_child
                 head_child.prev = cur
+
                 # 递归返回的是双链表，并不是双链表的最后一个数
                 tail_child = self._flatten(head_child)[1]
                 tail_child.next = cur_next
@@ -35,6 +44,28 @@ class Solution(object):
             cur = cur_next
             cur_next = cur_next.next
         return head, cur
+
+    # 网上的方法可以通过
+    def flatten1(self, head):
+        """
+        :type head: Node
+        :rtype: Node
+        """
+        curr = head
+        while curr:
+            if curr.child:
+                curr_next = curr.next
+                curr.child.prev = curr
+                curr.next = curr.child
+                last_child = curr
+                while last_child.next:
+                    last_child = last_child.next
+                if curr_next:
+                    last_child.next = curr_next
+                    curr_next.prev = last_child
+                curr.child = None
+            curr = curr.next
+        return head
 
 
 if __name__ == '__main__':
@@ -66,6 +97,13 @@ if __name__ == '__main__':
         node_0 = node
         if i == 3:
             node.child = l2
+
+    l1_copy1= deepcopy(l1)
+    l1_copy2 = deepcopy(l1)
     s = Solution()
-    l1 = s.flatten(l1)
-    print(l1)
+    l2 = s.flatten(l1_copy1)
+    l3 = s.flatten1(l1_copy2)
+
+    print(l3 == l1)
+
+    print(l3==l2)
