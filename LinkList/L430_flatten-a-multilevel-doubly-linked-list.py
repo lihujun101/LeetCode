@@ -67,6 +67,29 @@ class Solution(object):
             curr = curr.next
         return head
 
+    def flatten2(self,head):
+        cur = head
+        while cur:
+            if cur.child is not None:
+                cur_next = cur.next
+                cur.child.prev = cur
+                cur.next = cur.child
+                last_child = cur
+                # 孩子节点下一个节点不为空的时候，lasr_child往后移动
+                while last_child.next is not None:
+                    last_child = last_child.next
+                # last_child为最后一个孩子节点的时候，需要特殊处理
+                if cur_next is not None:
+                    last_child.next = cur_next
+                    cur_next.prev = last_child
+                # 将原有的child置为None
+                cur.child = None
+            # 这里next是新链表的next
+            cur = cur.next
+        return head
+
+
+
 
 if __name__ == '__main__':
     l3 = Node(11)
@@ -102,7 +125,7 @@ if __name__ == '__main__':
     l1_copy2 = deepcopy(l1)
     s = Solution()
     l2 = s.flatten(l1_copy1)
-    l3 = s.flatten1(l1_copy2)
+    l3 = s.flatten2(l1_copy2)
 
     print(l3 == l1)
 
