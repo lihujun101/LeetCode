@@ -16,5 +16,5 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    r = s.isValid("_")  # (([]){})  、[) 、([)] 、()[]{}
+    r = s.isValid("(([])[]{})")  # (([]){})  、[) 、([)] 、()[]{}
     print(r)
