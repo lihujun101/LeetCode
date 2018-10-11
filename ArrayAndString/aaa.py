@@ -17,55 +17,59 @@ class Solution:
         if len(matrix) == 1:
             return matrix[0]
 
-        # 墙壁的基准线
-        up, left, down, right = 0, 0, len(matrix) - 1, len(matrix[0]) - 1
+        # 墙壁初始的基准线
+        up, left, down, right = -1, -1, len(matrix), len(matrix[0])
         i, j = 0, 0
         matrix_list = []
-        while len(matrix_list) < len(matrix) * len(matrix[0]):
-            # move to right
-            while j <= right:
-                # 这里处理up的原因是因为向上移动的时候会走到(0,0)这个位置，或者其他使用过的位置
-                if up > i:
-                    i += 1
-                    j += 1
+
+        while True:
+            while j < right:
                 matrix_list.append(matrix[i][j])
-                if j < right:
-                    j += 1
-                if j == right:
-                    break
+                j += 1
+            # j-1是因为多取到的一个值
+            j -= 1
+            # 向右边走完了，那当前走的这条线就是up墙，那下一步就要向下走了，那这是i+1
+            up = i
+            i += 1
+            if len(matrix_list) >= len(matrix) * len(matrix[0]):
+                break
 
-
-            right -= 1
-
-            # move to down
-            while i <= down:
+            while i < down:
                 matrix_list.append(matrix[i][j])
-                if i < down:
-                    i += 1
-            down -= 1
+                i += 1
+            i -= 1
+            # 向下边走完了，那当前走的这条线就是right墙
+            right = j
+            j -= 1
+            if len(matrix_list) >= len(matrix) * len(matrix[0]):
+                break
 
-            # move to left
-            while j >= up:
+            while j > left:
                 matrix_list.append(matrix[i][j])
-                if j > up:
-                    j -= 1
+                j -= 1
+            j += 1
+            # 向左边走完了，那当前走的这条线就是down墙
+            down = i
+            i -= 1
+            if len(matrix_list) >= len(matrix) * len(matrix[0]):
+                break
 
-            up += 1
-
-            # move to up
-            while i >= left:
+            while i > up:
                 matrix_list.append(matrix[i][j])
-                if i > left:
-                    i -= 1
-            left += 1
+                i -= 1
+            i += 1
+            # 向上边走完了，那当前走的这条线就是left墙
+            left = j
+            j += 1
+            if len(matrix_list) >= len(matrix) * len(matrix[0]):
+                break
+
         return matrix_list
 
 
 if __name__ == '__main__':
-    nums = [
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9]
-    ]
+    nums = [[1, 2, 3],
+            [5, 6, 7],
+            [9, 10, 11]]
     s = Solution()
     print(s.spiralOrder(nums))
