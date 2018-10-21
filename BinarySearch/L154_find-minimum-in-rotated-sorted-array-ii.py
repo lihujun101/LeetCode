@@ -19,18 +19,16 @@ class Solution:
             return nums[left]
 
         if nums[0] == nums[-1]:
-            # left = 0
-            # right = len(nums) - 1
-            # while left <= right:
-            #     if nums[left] == nums[right]:
-            #         left += 1
-            #         right -= 1
-            #     else:
-            #         return min(nums[-1],self.findMin(nums[left:right + 1]))
-            # return nums[(left + right) // 2]
-            pass
+            left = 0
+            right = len(nums) - 1
+            while left < right:
+                if nums[left] == nums[right]:
+                    left += 1
+                else:
+                    return self.findMin(nums[left:])
+            return nums[left]
 
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.findMin([4, 3, 2, 1, 0]))
+    print(s.findMin([4,4,4]))
