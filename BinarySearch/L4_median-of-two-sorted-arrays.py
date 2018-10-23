@@ -13,6 +13,7 @@ class Solution:
         # 1、len(left)==len(right)(或者len(left)+1==len(right))，即i+j = m-i+n-j
         # 2、A[i-1]<=B[j] && B[j-1]<=A[j]就满足条件了，如果B[j-1] > A[i]，则需A[i]增大，B[j-1]减小，j减小到0的时候，则B[j-1]没有left_B了
         # 3、中位数 = (max(A[i - 1],B[j-1]),min(A[i],A[j]))/2(或者mid = min(A[i],B[j]))
+        # 4、其实并不是绝对的log(m+n)的方法，原解答也有问题，其实并不是log(m)的时间复杂度
 
         if len(nums1) < len(nums2):
             nums1, nums2 = nums2, nums1
