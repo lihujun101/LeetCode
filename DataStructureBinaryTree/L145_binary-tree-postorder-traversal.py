@@ -40,7 +40,52 @@ class Solution:
                     result.append(node.val)
         return result
 
+    # 不会修改的原树状结构优化，但是空间复杂度较大
+    def postorderTraversal3(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        stack = [root]
+        result = []
+        node_set = set()
+        if root is None:
+            return result
+        while stack:
+            node = stack[-1]
+            if node in node_set or (node.left == None and node.right == None):
+                node = stack.pop()
+                result.append(node.val)
+            else:
+                node_set.add(node)
+                if node.right:
+                    stack.append(node.right)
+                if node.left:
+                    stack.append(node.left)
+        return result
 
+    # 这个方法比较优，空间复杂度得到保证了，这个方法是网上的
+    def postorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        node = root
+        stack = [node]
+        result = []
+        if root is None:
+            return result
+        while stack:
+            n = stack[-1]
+            if n.left == node or n.right == node or (n.left == None and n.right == None):
+                node = stack.pop()
+                result.append(node.val)
+            else:
+                if n.right:
+                    stack.append(n.right)
+                if n.left:
+                    stack.append(n.left)
+        return result
 
 
 if __name__ == '__main__':
