@@ -1,4 +1,5 @@
 # Definition for a binary tree node.
+import json
 from collections import deque
 
 
@@ -18,6 +19,7 @@ class Codec:
         :rtype: str
         """
         # 采用BFS搜索,采用队列
+        # BFS结果展示[1, 2, 3, None, None, 4, 5, None, None, None, None]
         queue = deque()
         queue.append(root)
         result = []
@@ -35,39 +37,32 @@ class Codec:
                 result.append(node.val)
             else:
                 result.append(node)
-
-        return str(result)
+        return json.dumps(result)
 
     def deserialize(self, data):
-        """Decodes your encoded data to tree.
+        # [1, 2, 3, None, None, 4, 5, None, None, None, None]转为树结构
+        # 1、使用队列做最简单
 
-        :type data: str
-        :rtype: TreeNode
-        """
-        data_list = data.strip('[]').split(',')
-        # 可采用双指针，一个指向根，一个指向left、right
+        data_list = json.loads(data)
+        queue = deque()
         index = 0
-        leaf_min = 1
-        max_length = len(data_list) - 1
-        level = 1
-        while leaf_min < max_length:
-            leaf_min = 2 ** level - 1
-            level_max = 2 ** (level + 1) - 1
-            root_val = data_list[index]
-            root = TreeNode(root_val)
-            m = -1
-            for i in range(leaf_min, level_max + 1):
-                if m == -1:
-                    left = TreeNode(data_list[i])
-                    m = 1
-                    root.left = left
-                else:
-                    right = TreeNode(data_list[i])
-                    m = -1
-                    root.right = right
 
-
-        # Your Codec object will be instantiated and called as such:
+        root = TreeNode(data_list[index])
+        if root.val is None:
+            return
+        queue.append(root)
+        while queue:
+            node = queue.popleft()
+            for i in ('l', 'r'):
+                index += 1
+                leaf = TreeNode(data_list[index])
+                if leaf.val is not None:
+                    if i == 'l':
+                        node.left = leaf
+                    else:
+                        node.right = leaf
+                    queue.append(leaf)
+        return root
 
 
 # codec = Codec()
@@ -75,12 +70,17 @@ class Codec:
 if __name__ == '__main__':
     a1 = TreeNode(1)
     a2 = TreeNode(2)
-    a3 = TreeNode(3)
-    a4 = TreeNode(4)
-    a5 = TreeNode(5)
+    a3 = TreeNode(-1)
+    a4 = TreeNode(0)
+    a5 = TreeNode(1)
     a1.left = a2
     a1.right = a3
     a3.left = a4
     a3.right = a5
+
+    a0 = TreeNode(None)
     codec = Codec()
-    print(codec.serialize(a1))
+    m = codec.serialize(a3)
+    print(m)
+    m1 = codec.deserialize(m)
+    print(m1)
